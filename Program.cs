@@ -11,8 +11,7 @@ namespace ConsoleApplication
         {
             try
             {
-                Console.WriteLine("Starting with arg {0}", args[0]);
-                var matcher = args.Length > 0 ? "Problem" + args[0] : "Problem";
+                var matcher = GetMatcher(args);
                 typeof(Program).GetTypeInfo().Assembly.GetTypes()
                     .Where(type => type.Namespace == "Problems")
                     .Where(type => type.Name.Contains(matcher))
@@ -35,6 +34,14 @@ namespace ConsoleApplication
                 Console.WriteLine(ex.StackTrace);
             }
                   
+        }
+        
+        private static string GetMatcher(string[] args){
+            if (args.Length > 0){
+                Console.WriteLine("Starting with arg {0}", args[0]);
+                return "Problem" + args[0];
+            }
+            return "Problem";
         }
     }
 }
